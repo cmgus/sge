@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGE</title>
+</head>
+
+<body>
+    <h1>Ola ke ase</h1>
+    <span id="message"></span>
+    <form id="auth_form">
+        <input type="text" name="email">
+        <input type="password" name="password">
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        auth_form.addEventListener('submit', async e => {
+            e.preventDefault()
+            const res = await fetch('http://127.0.0.1:9092', {
+                method: 'POST',
+                body: new FormData(auth_form)
+            })
+            const data = await res.json()
+            console.log(data)
+        })
+        document.addEventListener('DOMContentLoaded', async () => {
+            const res = await fetch('http://127.0.0.1:9092')
+            const data = await res.json()
+            message.innerHTML = `${data.title} - ${data.version}`
+        })
+    </script>
+</body>
+
+</html>
